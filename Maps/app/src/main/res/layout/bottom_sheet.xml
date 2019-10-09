@@ -2,108 +2,215 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_sheet"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     app:behavior_hideable="false"
     app:behavior_peekHeight="72dp">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:background="#FFFFFF">
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="0dp">
 
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/drag_handle"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginBottom="24dp"
+                android:src="@drawable/drag_handle"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GPS Position"
+                android:textStyle="bold"
+                android:paddingLeft="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Long"
+                        android:textSize="14dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1.5665745"
+                        android:textSize="18dp"
+                        android:layout_marginTop="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lat"
+                        android:textSize="14dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1.5665745"
+                        android:textSize="18dp"
+                        android:layout_marginTop="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
 
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/etLong"
+            <SeekBar
+                android:id="@+id/seekBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="24dp"
-                android:paddingBottom="24dp"
-                android:paddingLeft="16dp"
-                android:hint="Long"
-                android:layout_weight="1"
-                android:inputType="numberDecimal"
-                android:background="@null"
-                android:textSize="18sp"/>
+                android:layout_weight="1" />
 
-            <EditText
-                android:id="@+id/etLat"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="24dp"
-                android:paddingBottom="24dp"
+                android:text="Map Marker"
+                android:textStyle="bold"
                 android:paddingLeft="16dp"
-                android:hint="Lat"
-                android:layout_weight="1"
-                android:inputType="numberDecimal"
-                android:background="@null"
-                android:textSize="18sp"/>
-
-            <EditText
-                android:id="@+id/etZoom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="24dp"
-                android:paddingBottom="24dp"
-                android:paddingLeft="16dp"
-                android:hint="Zoom"
-                android:layout_weight="1"
-                android:inputType="numberDecimal"
-                android:background="@null"
-                android:textSize="18sp"/>
-
-            <ImageButton
-                android:id="@+id/btnGo"
-                android:layout_width="56dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/send"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_marginTop="16dp"
                 />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/etLong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="24dp"
+                    android:paddingLeft="16dp"
+                    android:hint="Long"
+                    android:layout_weight="1"
+                    android:inputType="numberDecimal"
+                    android:background="@null"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/etLat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="24dp"
+                    android:paddingLeft="16dp"
+                    android:hint="Lat"
+                    android:layout_weight="1"
+                    android:inputType="numberDecimal"
+                    android:background="@null"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/etZoom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="24dp"
+                    android:paddingLeft="16dp"
+                    android:hint="Zoom"
+                    android:layout_weight="1"
+                    android:inputType="numberDecimal"
+                    android:background="@null"
+                    android:textSize="18sp"/>
+
+                <ImageButton
+                    android:id="@+id/btnGo"
+                    android:layout_width="56dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/send"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etAlamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="24dp"
+                    android:paddingLeft="16dp"
+                    android:hint="Cari Alamat"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:textSize="18sp"/>
+
+                <ImageButton
+                    android:id="@+id/btnSearch"
+                    android:layout_width="56dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_search_black_24dp"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    </androidx.cardview.widget.CardView>
 
-            <EditText
-                android:id="@+id/etAlamat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="24dp"
-                android:paddingBottom="24dp"
-                android:paddingLeft="16dp"
-                android:hint="Cari Alamat"
-                android:layout_weight="1"
-                android:background="@null"
-                android:textSize="18sp"/>
 
-            <ImageButton
-                android:id="@+id/btnSearch"
-                android:layout_width="56dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/send"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                />
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 
 
