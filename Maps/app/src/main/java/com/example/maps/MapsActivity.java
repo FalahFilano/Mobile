@@ -1,10 +1,18 @@
 package com.example.maps;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -12,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -28,11 +37,17 @@ import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private static final int TAG_CODE_PERMISSION_LOCATION = 1;
+    private TextView tvGpsLat, tvGpsLong;
     private GoogleMap mMap;
     private ImageButton send,cari;
     private EditText etLat, etLong, etZoom,tempat;
     LinearLayout linearLayout;
     BottomSheetBehavior bottomSheetBehavior;
+
+    private LocationManager locationManager;
+    private Location currentLocation;
+    private LocationListener locationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +61,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         linearLayout = findViewById(R.id.bottom_sheet);
         bottomSheetBehavior = BottomSheetBehavior.from(linearLayout);
 
-
+        tvGpsLat= findViewById(R.id.tvGpsLat);
+        tvGpsLong = findViewById(R.id.tvGpsLong);
 
         send = findViewById(R.id.btnGo);
         cari = findViewById(R.id.btnSearch);
@@ -54,6 +70,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         send.setOnClickListener(op);
         cari.setOnClickListener(op);
 
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[] {
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION },
+                        TAG_CODE_PERMISSION_LOCATION);
+            }
+        }
+
+        currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        tvGpsLong.setText(currentLocation.getLongitude()+"");
+        tvGpsLat.setText(currentLocation.getLatitude()+"");
+
+        locationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                currentLocation = location;
+                tvGpsLat.setText(currentLocation.getLatitude() + "");
+                tvGpsLong.setText(currentLocation.getLongitude() + "");
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, 10, locationListener);
     }
 
     View.OnClickListener op = new View.OnClickListener() {
@@ -154,6 +209,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[] {
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION },
+                    TAG_CODE_PERMISSION_LOCATION);
+        }
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);

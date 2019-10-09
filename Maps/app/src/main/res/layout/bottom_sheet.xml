@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_sheet"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -26,15 +27,41 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:layout_marginBottom="24dp"
                 android:src="@drawable/drag_handle"/>
 
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="GPS Position"
-                android:textStyle="bold"
-                android:paddingLeft="16dp" />
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:text="Real Time Position"
+                    android:textColor="#03A9F4"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/lottieAnimationView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottieAnimationView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="ripple2.json"
+                    app:lottie_loop="true" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,17 +73,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginLeft="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Long"
-                        android:textSize="14dp"/>
+                        android:textSize="12dp"/>
 
                     <TextView
+                        android:id="@+id/tvGpsLong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1.5665745"
@@ -70,22 +98,23 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginLeft="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Lat"
-                        android:textSize="14dp"/>
+                        android:textSize="12dp"/>
 
                     <TextView
+                        android:id="@+id/tvGpsLat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:text="1.5665745"
-                        android:textSize="18dp"
-                        android:layout_marginTop="8dp"/>
+                        android:textSize="18dp" />
 
                 </LinearLayout>
 
@@ -111,64 +140,83 @@
             android:orientation="vertical"
             android:background="#FFFFFF">
 
-            <SeekBar
-                android:id="@+id/seekBar"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Map Marker"
-                android:textStyle="bold"
-                android:paddingLeft="16dp"
-                android:layout_marginTop="16dp"
-                />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Map Marker"
+                    android:textColor="#03A9F4"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_place_black_24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="8dp"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/etLong"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="24dp"
-                    android:paddingBottom="24dp"
-                    android:paddingLeft="16dp"
-                    android:hint="Long"
                     android:layout_weight="1"
-                    android:inputType="numberDecimal"
-                    android:background="@null"
-                    android:textSize="18sp"/>
+                    android:hint="Long">
 
-                <EditText
-                    android:id="@+id/etLat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="24dp"
-                    android:paddingBottom="24dp"
-                    android:paddingLeft="16dp"
-                    android:hint="Lat"
-                    android:layout_weight="1"
-                    android:inputType="numberDecimal"
-                    android:background="@null"
-                    android:textSize="18sp"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLong"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
-                <EditText
-                    android:id="@+id/etZoom"
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="24dp"
-                    android:paddingBottom="24dp"
-                    android:paddingLeft="16dp"
-                    android:hint="Zoom"
                     android:layout_weight="1"
-                    android:inputType="numberDecimal"
-                    android:background="@null"
-                    android:textSize="18sp"/>
+                    android:hint="Lat">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Zoom">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etZoom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageButton
                     android:id="@+id/btnGo"
@@ -182,19 +230,23 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp">
 
-                <EditText
-                    android:id="@+id/etAlamat"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="24dp"
-                    android:paddingBottom="24dp"
-                    android:paddingLeft="16dp"
-                    android:hint="Cari Alamat"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:textSize="18sp"/>
+                    android:hint="Cari Alamat">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAlamat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageButton
                     android:id="@+id/btnSearch"
